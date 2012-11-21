@@ -6,18 +6,30 @@
         <groupId>MySel20Proj</groupId>
         <artifactId>MySel20Proj</artifactId>
         <version>1.0</version>
-        <dependencies>
-            <dependency>
+        
+		<dependencies>
+            
+			<dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
                 <version>2.25.0</version>
             </dependency>
-            <dependency>
+            
+			<dependency>
                 <groupId>com.opera</groupId>
                 <artifactId>operadriver</artifactId>
             </dependency>
-        </dependencies>
-        <dependencyManagement>
+			
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.8.2</version>
+			</dependency>
+        
+		</dependencies>
+        
+		
+		<dependencyManagement>
             <dependencies>
                 <dependency>
                     <groupId>com.opera</groupId>
