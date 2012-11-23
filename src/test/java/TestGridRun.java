@@ -1,9 +1,10 @@
 package test.java;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,20 +12,27 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class TestSelenium2Example {
+public class TestGridRun {
 	 private WebDriver driver;
 	 private WebDriverWait wait;
 	
 	
 	  @Before 
-	  public void openBrowser() { 
-	    driver = new FirefoxDriver(); 
-	    wait = new WebDriverWait(driver, 10);
-	    driver.get("http://www.google.com"); 
+	  public void setUp() { 
+		  DesiredCapabilities capability = DesiredCapabilities.firefox();
+			try {
+				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
+				wait = new WebDriverWait(driver, 10);
+				driver.get("http://www.google.com"); 
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+				System.out.println("Hub URL not correcly formatted!");
+			}
 	  } 
 
 	  @After 
@@ -34,9 +42,6 @@ public class TestSelenium2Example {
 
 	  @Test 
 	  public void pageTitleAfterSearchShouldBeginWithDrupal() throws IOException { 
-
-	    assertEquals("The page title should equal Google at the start of the test.", "Google", driver.getTitle());
-
 	    WebElement searchField = driver.findElement(By.name("q")); 
 	    searchField.sendKeys("Drupal!"); 
 	    searchField.submit(); 
